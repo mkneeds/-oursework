@@ -1,14 +1,54 @@
 #include "Authentication.h"
-
+#include <Windows.h>
 void Authentication::regestration() {
-	cout << "\t\tРегестрация:" << endl;
-	cout << "Введите логин:" << endl;
-	setLogin();
-	cout << "Введите пароль:" << endl;
-	setPassword();
-	writeEndFileAccounts();
-	
+    if (account_point == 0) {
+        string login;
+        string login_check_povtor;
+        int controller = 0;
+        ifstream fout(file);
+        cout << "\t\tРегестрация:" << endl;
+        cout << "Введите логин:" << endl;
+        login = setLogin();
+        if (!fout.is_open()) {
+            cout << "Не удаётся открыть бд...Обратитесь к Администратору" << endl;
+        }
+        else {
+            while (!fout.eof()) {
+                enc.decrypt();
+                fout >> login_check_povtor;
+                enc.encrypt();
+                if (strcmp(login_check_povtor.c_str(), login.c_str()) != 0) {
+                    controller = 0;
+                }
+                else {
+                    controller = 1;
+                    break;
+                }
+            }
+        }
+        if (controller == 0) {
+            cout << "Введите пароль:" << endl;
+            setPassword();
+            account_point = 1;
+            writeEndFileAccounts();
+            system("cls");
+            cout << "Регестрация прошла успешно" << endl;
+            system("pause");
+            system("cls");
+        }
+        else {
+            fout.close();
+            cout << "Такой логин уже существует повторите попытку...." << endl;
+            system("pause");
+            system("cls");
+        }
 
+    }
+    else {
+        cout << "Вы уже создали аккаунт...Авторизуйтесь" << endl;
+        system("pause");
+        system("cls");
+    }
 }
 void Authentication::writeEndFileAccounts()
 {
@@ -110,7 +150,7 @@ char* Authentication::encryption() {
 	return a;
 }
 
-void Authentication::auth() {
+int Authentication::auth() {
 	enc.decrypt();
 	ifstream fin(file, ios::in);
 	if (fin.peek() == EOF) {
@@ -120,9 +160,13 @@ void Authentication::auth() {
 		cout << "Введите пароль:" << endl;
 		password = setPassword();
 		role = "Admin";
-		access_reg = 0;
+		account_point = 1;
 		writeEndFileAccounts();
-		fin.close();
+		fin.close();       
+        system("cls");
+        cout << "Регестрация прошла успешно" << endl;
+        system("pause");
+        return account_point;
 	}
 	else {
 		int8_t controller = 0, autho = 0, access = 0;
@@ -160,6 +204,8 @@ void Authentication::auth() {
 				cout << "Логин или пароль введены неверно.Повторите попытку" << endl;
 				system("pause");
 				access_log = 0;
+                enc.encrypt();
+                return TRUE;
 			}
 			else {
 				string admin = "Admin";
@@ -172,10 +218,12 @@ void Authentication::auth() {
 				cout << "Вы успешно вошли...." << endl;
 				access_log = 1;
 				system("pause");
+                enc.encrypt();
+                return FALSE;
 			}
 
 		}
-		fin.close();
-		enc.encrypt();
+        fin.close();
 	}
+    fin.close();
 }

@@ -129,11 +129,16 @@
   <ItemGroup>
     <ClCompile Include="Authentication.cpp" />
     <ClCompile Include="Encryption.cpp" />
+    <ClCompile Include="Game.cpp" />
     <ClCompile Include="Сoursework.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Authentication.h" />
     <ClInclude Include="Encryption.h" />
+    <ClInclude Include="Game.h" />
+    <ClInclude Include="menu.h" />
+    <ClInclude Include="SmartPointer.h" />
+    <ClInclude Include="Validators.h" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="Auth.txt" />

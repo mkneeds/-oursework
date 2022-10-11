@@ -1,25 +1,51 @@
-﻿// Сoursework.cpp : This file contains the 'main' function. Program execution begins and ends there.
-//
-
-#include <iostream>
+﻿#include "Validators.h"
 #include "Authentication.h"
 #include <Windows.h>
-int main()
+#include "SmartPointer.cpp"
+#include "menu.h"
+
+using namespace menu;
+
+void main(int argc, TCHAR* argv[])
 {
+    HWND console = GetConsoleWindow();
+    HMENU menu = GetSystemMenu(console, FALSE);
+    DeleteMenu(menu, SC_CLOSE, MF_BYCOMMAND);
 	SetConsoleCP(1251);
 	SetConsoleOutputCP(1251);
-	Authentication a;
-	a.auth();
-	cout << unsigned(a.access_inf);
+	SmartPointer <Authentication> a = new Authentication();
+    bool flag = TRUE;
+    while (flag) {
+        auth_menu();
+        switch (checkInterval(1, 3)) {
+        case 1: flag = a->auth(); break;
+        case 2: a->regestration(); break;
+        case 3: exit(0);
+        }
+    }
+    int8_t user = 0;
+    flag = TRUE;
+    if (a->getAccessInf() == 1) {
+        while (flag) {
+            first_admin_menu();
+            switch (checkInterval(1, 3)) {
+            case 1: break;
+            case 2: user = 1; flag = FALSE; break;
+            case 3: exit(0);
+            }
+        }
+    }
+    if(a->getAccessInf() == 0 || user == 1 ){
+        while (1) {
+            user_menu();
+            switch (checkInterval(1, 4)) {
+            case 1: break;
+            case 2: break;
+            case 3: break;
+            case 4: exit(0);
+            }
+        }
+    }
+
 }
 
-// Run program: Ctrl + F5 or Debug > Start Without Debugging menu
-// Debug program: F5 or Debug > Start Debugging menu
-
-// Tips for Getting Started: 
-//   1. Use the Solution Explorer window to add/manage files
-//   2. Use the Team Explorer window to connect to source control
-//   3. Use the Output window to see build output and other messages
-//   4. Use the Error List window to view errors
-//   5. Go to Project > Add New Item to create new code files, or Project > Add Existing Item to add existing code files to the project
-//   6. In the future, to open this project again, go to File > Open > Project and select the .sln file
