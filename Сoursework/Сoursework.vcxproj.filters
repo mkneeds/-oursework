@@ -47,9 +47,15 @@
     <ClInclude Include="Game.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Table.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Text Include="Auth.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
+    <Text Include="Games.txt">
       <Filter>Resource Files</Filter>
     </Text>
   </ItemGroup>

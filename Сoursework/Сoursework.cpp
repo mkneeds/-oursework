@@ -3,6 +3,7 @@
 #include <Windows.h>
 #include "SmartPointer.cpp"
 #include "menu.h"
+#include "Game.h"
 
 using namespace menu;
 
@@ -13,7 +14,9 @@ void main(int argc, TCHAR* argv[])
     DeleteMenu(menu, SC_CLOSE, MF_BYCOMMAND);
 	SetConsoleCP(1251);
 	SetConsoleOutputCP(1251);
+    SmartPointer<Game> game = new Game();
 	SmartPointer <Authentication> a = new Authentication();
+
     bool flag = TRUE;
     while (flag) {
         auth_menu();
@@ -39,7 +42,7 @@ void main(int argc, TCHAR* argv[])
         while (1) {
             user_menu();
             switch (checkInterval(1, 4)) {
-            case 1: break;
+            case 1: game->print_game();
             case 2: break;
             case 3: break;
             case 4: exit(0);

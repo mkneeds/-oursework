@@ -138,10 +138,12 @@
     <ClInclude Include="Game.h" />
     <ClInclude Include="menu.h" />
     <ClInclude Include="SmartPointer.h" />
+    <ClInclude Include="Table.h" />
     <ClInclude Include="Validators.h" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="Auth.txt" />
+    <Text Include="Games.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
