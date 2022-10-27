@@ -202,13 +202,7 @@ void Game::BlankBytes(int bytes) {
     printf(strBlankStr, "");
 }
 
-void Game::LoadFromFile(vector<Game>& v) {
-    ifstream f(NAME_FILE);
-    Game temp;
-    while (f >> temp)
-        v.push_back(temp);
-    f.close();
-}
+
 bool mapFunc(string a, string b)
 {
     return a.substr(49) > b.substr(49);
@@ -241,27 +235,43 @@ int checkIntervals(int min, int max)
     }
     return value;
 }
-void Game::sort_game() {
-    vector<string>tz;
+void Game::LoadFromFile(vector<Game>&v) {
     ifstream f(NAME_FILE);
-    string temp;
-    while (getline(f,temp))
-        tz.push_back(temp);
+    Game temp;
+    while (f >> temp){
+        v.push_back(temp);
+    }
     f.close();
+
+}
+
+void Game::sort_game() {
+    vector<Game*> tz;
+    vector<Game>tk;
+    vector<Game>tk_plus;
+    LoadFromFile(tk);
+    for (auto item : tk) {
+        tz.push_back(new Game(item.get_numer(),item.get_type(),item.get_first_team(),item.get_second_team(),item.get_time(),item.get_kf_1(),item.get_kf_x(),item.get_kf_2(),item.get_money()));
+    }
+
     cout << "\t\tМеню сортировки:" << endl;
     cout << "\t(1) ~ Отсортировать по номеру" << endl;
-    cout << "\t(2) ~ Отсортировать по ставке" << endl;
-    cout << "\t(3) ~ Отсортировать по алфавиту(Вид спорта)" << endl;
+    cout << "\t(2) ~ Отсортировать по типу" << endl;
+    cout << "\t(3) ~ Отсортировать по ставкам" << endl;
     cout << "Ваш выбор: ";
-    switch (checkIntervals(1, 3)) {
-    case 1: stable_sort(tz.begin(), tz.end()); break;
-    case 2: stable_sort(tz.begin(), tz.end(), mapFunc);
+    int what = checkIntervals(-3, 4);
+    stable_sort(tz.begin(), tz.end(), comp_data(what));
+    tk.clear();
+    
+    for (auto item : tz) {
+        tk_plus.push_back(*item);
     }
+
     ofstream onz(NAME_FILE);
-    copy(tz.begin(), tz.end(), ostream_iterator<string>(onz, "\n"));
+    copy(tk_plus.begin(), tk_plus.end(), ostream_iterator<Game>(onz, "\n"));
     onz.close();
     print_game();
- 
-    
-    
+    tk.clear();
+    tz.clear();
+    tk_plus.clear();
 }
