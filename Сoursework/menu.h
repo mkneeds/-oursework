@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 #include <iostream>
 
 using namespace std;
@@ -7,32 +7,36 @@ namespace menu {
     void auth_menu();
     void first_admin_menu();
     void user_menu();
+    void admin_menu();
 }
 
 void menu::auth_menu() {
-    cout << "\t\tÌåíþ âõîäà â ñèñòåìó:" << endl;
-    cout << "\t(1) ~ Àâòîðèçàöèÿ" << endl;
-    cout << "\t(2) ~ Ðåãèñòðàöèÿ" << endl;
-    cout << "\t(3) ~ Âûõîä" << endl;
-    cout << "Âàø âûáîð: ";
+    cout << "\t\tÐœÐµÐ½ÑŽ:" << endl;
+    cout << "\t(1) ~ Ð’Ð¾Ð¹Ñ‚Ð¸ Ð² Ð°ÐºÐºÐ°ÑƒÐ½Ñ‚"<< endl;
+    cout << "\t(2) ~ Ð ÐµÐ³Ð¸ÑÑ‚Ñ€Ð°Ñ†Ð¸Ñ Ð½Ð¾Ð²Ð¾Ð³Ð¾ Ð¿Ð¾Ð»ÑŒÐ·Ð¾Ð²Ð°Ñ‚ÐµÐ»Ñ" << endl;
+    cout << "\t(3) ~ Ð’Ñ‹Ñ…Ð¾Ð´" << endl;
+    cout << "Ð’Ð°Ñˆ Ð’Ñ‹Ð±Ð¾Ñ€: ";
 }
 
 void menu::first_admin_menu() {
-    cout << "\t\tÂûáîð ìåíþ:" << endl;
-    cout << "\t(1) ~ Èñïîëüçîâàòü ìåíþ àäìèíà" << endl;
-    cout << "\t(2) ~ Èñïîëüçîâàòü ìåíþ ïîëüçîâàòåëÿ" << endl;
-    cout << "\t(3) ~ Âûõîä" << endl;
-    cout << "Âàø âûáîð: ";
+    cout << "\t\tÐ’Ñ‹Ð±Ð¾Ñ€ Ð¼ÐµÐ½ÑŽ(Ð¢Ð¾Ð»ÑŒÐºÐ¾ Ð´Ð»Ñ Ð°Ð´Ð¼Ð¸Ð½Ð°):" << endl;
+    cout << "\t(1) ~ Ð’Ð¾Ð¹Ñ‚Ð¸ ÐºÐ°Ðº ÐÐ´Ð¼Ð¸Ð½" << endl;
+    cout << "\t(2) ~ Ð’Ð¾Ð¹Ñ‚Ð¸ ÐºÐ°Ðº ÐŸÐ¾Ð»ÑŒÐ·Ð¾Ð²Ð°Ñ‚ÐµÐ»ÑŒ" << endl;
+    cout << "\t(3) ~ Ð’Ñ‹Ñ…Ð¾Ð´" << endl;
+    cout << "Ð’Ð°Ñˆ Ð’Ñ‹Ð±Ð¾Ñ€: ";
 }
 void menu::user_menu() {
-    cout << "\t\tVåíþ:" << endl;
-    cout << "\t(1) ~ Ïîñìîòðåòü èãðû" << endl;
-    cout << "\t(2) ~ Ñäåëàòü ñòàâêó" << endl;
-    cout << "\t(3) ~ Ïîïîëíèòü áàëàíñê" << endl;
-    cout << "\t(4) ~ Âûõîä" << endl;
-    cout << "Âàø âûáîð: ";
+    cout << "\t\tÐœÐµÐ½ÑŽ:" << endl;
+    cout << "\t(1) ~ ÐŸÑ€Ð¾ÑÐ¼Ð¾Ñ‚Ñ€ÐµÑ‚ÑŒ Ð²ÑÐµ Ð¸Ð³Ñ€Ñ‹" << endl;
+    cout << "\t(2) ~ Ð¡Ð´ÐµÐ»Ð°Ñ‚ÑŒ ÑÑ‚Ð°Ð²ÐºÑƒ" << endl;
+    cout << "\t(3) ~ ÐŸÐ¾Ð¿Ð¾Ð»Ð½Ð¸Ñ‚ÑŒ Ð±Ð°Ð»Ð°Ð½Ñ" << endl;
+    cout << "\t(4) ~ Ð’Ñ‹Ñ…Ð¾Ð´" << endl;
+    cout << "Ð’Ð°Ñˆ Ð²Ñ‹Ð±Ð¾Ñ€: ";
 }
-
+void menu::admin_menu() {
+    cout << "\t\tÐœÐµÐ½ÑŽ:" << endl;
+    cout << "\t(1) ~ Ð”Ð¾Ð±Ð°Ð²Ð¸Ñ‚ÑŒ Ð¸Ð³Ñ€Ñƒ" << endl;
+}
 
 
 

@@ -15,6 +15,7 @@ private:
 	int8_t access_inf = 0;// change and admin mode
 	int8_t access_log = 0;// acc in auth
 	string file = "Auth.txt";
+    int user_balance = 0;
 public:
 	int auth();
 	void regestration();

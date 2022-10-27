@@ -1,36 +1,39 @@
-#include "Game.h"
+ï»¿#include "Game.h"
+#include <conio.h>
+#include "SmartPointer.cpp"
+#include "cassert"
+
 
 void Game::add_game() {
-    cout << "\t\t\tÄîáàâëåíèå ìàò÷åé:" << endl;
-    cout << "Ñêîëüêî ìàò÷åé õîòèòå äîáàâèòü?" << endl;
+    setlocale(0, "rus");
+    cout << "\t\t\tÐ”Ð¾Ð±Ð°Ð²Ð»ÐµÐ½Ð¸Ðµ Ð¸Ð³Ñ€Ñ‹:" << endl;
+    cout << "Ð¡ÐºÐ¾Ð»ÑŒÐºÐ¾ Ñ…Ð¾Ñ‚Ð¸Ñ‚Ðµ Ð´Ð¾Ð±Ð°Ð²Ð¸Ñ‚ÑŒ Ð¸Ð³Ñ€?" << endl;
     int count;
     cin >> count;
     for (int i = 0; i < count; i++) {
-        cout << "\tÂâåäèòå âèä ñïîðòà:";
-        cin >> type_of_game;
-        cin.get();
+        cout << "\tÐ’Ð²ÐµÐ´Ð¸Ñ‚Ðµ Ñ‚Ð¸Ð¿ Ð¸Ð³Ñ€Ñ‹:";
+        cin.ignore();
+        getline(cin,type_of_game);
         cout<<endl;
-        cout << "\tÂâåäèòå âðåìÿ íà÷àëà èãðû:";
-        cin >> time;
-        cin.get();
+        cout << "\tÐ’Ð²ÐµÐ´Ð¸Ñ‚Ðµ Ð´Ð°Ñ‚Ñƒ Ð½Ð°Ñ‡Ð°Ð»Ð° Ð¸Ð³Ñ€Ñ‹(**:** **-**-****):" << endl;
+        mask_time();
         cout << endl;
-        cout << "\tÂâåäèòå íàçâàíèå ïåðâîé êîìàíäû:";
-        getline(cin,first_team);
+        cout << "\tÐ’Ð²ÐµÐ´Ð¸Ñ‚Ðµ Ð¸Ð¼Ñ Ð¿ÐµÑ€Ð²Ð¾Ð¹ ÐºÐ¾Ð¼Ð°Ð½Ð´Ñ‹:";
+        cin.ignore();
+        getline(cin, first_team);
         cout << endl;
-        cout << "\tÂâåäèòå íàçâàíèå âòîðîé êîìàíäû:";
-        getline(cin, second_team);
+        cout << "\tÐ’Ð²ÐµÐ´Ð¸Ñ‚Ðµ Ð¸Ð¼Ñ Ð²Ñ‚Ð¾Ñ€Ð¾Ð¹ ÐºÐ¾Ð¼Ð°Ð½Ð´Ñ‹:";
+        cin.ignore();
+        getline(cin,second_team);
         cout << endl;
-        cout << "\tÂâåäèòå êîýô. íà ïåðâóþ êîìàíäó:";
-        cin >> kf_1;
-        cin.get();
+        cout << "\tÐ’Ð²ÐµÐ´Ð¸Ñ‚Ðµ ÐºÐ¾ÑÑ„. Ð¿ÐµÑ€Ð²Ð¾Ð¹ ÐºÐ¾Ð¼Ð°Ð½Ð´Ñ‹:";
+        mask_kf1();
         cout << endl;
-        cout << "\tÂâåäèòå êîýô. ïðè èñõîäå íè÷üÿ:";
-        cin >> kf_x;
-        cin.get();
+        cout << "\tÐ’Ð²ÐµÐ´Ð¸Ñ‚Ðµ ÐºÐ¾ÑÑ„. Ð¿Ñ€Ð¸ Ð¸ÑÑ…Ð¾Ð´Ðµ Ð½Ð¸Ñ‡ÑŒÑ:";
+        mask_kfx();
         cout << endl;
-        cout << "\tÂâåäèòå êîýô. íà âòîðóþ êîìàíäó:";
-        cin >> kf_2;
-        cin.get();
+        cout << "\tÐ’Ð²ÐµÐ´Ð¸Ñ‚Ðµ ÐºÐ¾ÑÑ„. Ð²Ñ‚Ð¾Ñ€Ð¾Ð¹ ÐºÐ¾Ð¼Ð°Ð½Ð´Ñ‹:";
+        mask_kf2();
         cout << endl;
         upload_information();
         write_end_file();
@@ -38,13 +41,19 @@ void Game::add_game() {
 }
 void Game::write_end_file() {
     ofstream fout(NAME_FILE, ios::app);
+    for (int i = 0; type_of_game[i]; i++)
+        if (type_of_game[i] == ' ')
+            type_of_game[i] = '.';
     for (int i = 0; first_team[i]; i++)
         if (first_team[i] == ' ')
             first_team[i] = '.';
     for (int i = 0; second_team[i]; i++)
         if (second_team[i] == ' ')
             second_team[i] = '.';
-    fout << numer_game << " " << type_of_game << " " << time << " " << first_team << " " << second_team << " " << kf_1 << " " << kf_x << " " << kf_2;
+    for (int i = 0; time[i]; i++)
+        if (time[i] == ' ')
+            time[i] = '.';
+    fout << numer_game << " " << type_of_game << " " << time << " " << first_team << " " << second_team << " " << kf_1 << " " << kf_x << " " << kf_2 << " " << money;
     fout << endl;
     fout.close();
 }
@@ -53,7 +62,7 @@ void Game::upload_information() {
     string line;
     numer_game = 1;
     if (!fin) {
-        cout << "Íåò äîñòóïà ê ôàéëó,îáðàòèòåñü ê àäìèíó///";
+        cout << "ÐÐµ///";
         }
     else {
         while (getline(fin, line)) {
@@ -65,38 +74,194 @@ void Game::upload_information() {
 void Game::print_game() {
     ifstream fout(NAME_FILE, ios::in);
     if (!fout) {
-        cout << "Íåò äîñòóïà ê ôàéëó,îáðàòèòåñü ê àäìèíó///";
+        cout << "ÐÐµ ÑƒÐ´Ð°Ð»Ð¾ÑÑŒ Ð¾Ñ‚ÐºÑ€Ñ‹Ñ‚ÑŒ Ñ„Ð°Ð¹Ð»...///";
     }
     else {
         TextTable t('-', '|', '+');
-        t.add("¹");
-        t.add("Âèä Ñïîðòà");
-        t.add("Íà÷àëî èãðû");
-        t.add("Ïåðâàÿ êîìàíäà");
-        t.add("Âòîðàÿ êîìàíäà");
+        t.add("");
+        t.add("Ð’Ð¸Ð´ ÑÐ¿Ð¾Ñ€Ñ‚Ð°");
+        t.add("Ð”Ð°Ñ‚Ð° Ð½Ð°Ñ‡Ð°Ð»Ð° Ð¸Ð³Ñ€Ñ‹");
+        t.add("ÐŸÐµÑ€Ð²Ð°Ñ ÐºÐ¾Ð¼Ð°Ð½Ð´Ð°");
+        t.add("Ð’Ñ‚Ð¾Ñ€Ð°Ñ ÐºÐ¾Ð¼Ð°Ð½Ð´Ð°");
         t.add("KF_1");
         t.add("KF_X");
         t.add("KF_2");
+        t.add("Ð¡ÑƒÐ¼Ð¼Ð° ÑÑ‚Ð°Ð²Ð¾Ðº");
         t.endOfRow();
-        while (fout >> numer_game >> type_of_game >> time >> first_team >> second_team >> kf_1 >> kf_x >> kf_2) {
+        while (fout >> numer_game >> type_of_game >> time >> first_team >> second_team >> kf_1 >> kf_x >> kf_2>>money ) {
+            for (int i = 0; type_of_game[i]; i++)
+                if (type_of_game[i] == '.')
+                    type_of_game[i] = ' ';
             for (int i = 0; first_team[i]; i++)
                 if (first_team[i] == '.')
                     first_team[i] = ' ';
             for (int i = 0; second_team[i]; i++)
                 if (second_team[i] == '.')
                     second_team[i] = ' ';
-            
+            for (int i = 0; time[i]; i++)
+                if (time[i] == '.')
+                    time[i] = ' ';
             t.add(to_string(numer_game));
             t.add(type_of_game);
             t.add(time);
             t.add(first_team);
             t.add(second_team);
-            t.add(to_string(kf_1));
-            t.add(to_string(kf_x));
-            t.add(to_string(kf_2));
+            t.add(kf_1);
+            t.add(kf_x);
+            t.add(kf_2);
+            t.add(to_string(money));
             t.endOfRow();
         }
         cout << t;
         fout.close();
     }
+}
+void Game::mask_time() {
+    int length = 0;
+    int pospos = 0;
+    int posarrays[12] = { 0,1,3,4,6,7,9,10,12,13,14,15 };
+    int pos = posarrays[pospos];
+    char mask[17] = "**:** **-**-****";
+    while (length != 12) {
+        int ch = _getch();
+        if (ch >= '0' && ch <= '9') {
+            length++;
+            mask[pos] = ch;
+            system("cls");
+            pospos++;
+            pos = posarrays[pospos];
+            cout << mask<<"\b";
+
+        }
+    }
+    
+    time = mask;
+}
+
+void Game::mask_kf1() {
+    int length = 0;
+    int pospos = 0;
+    int posarrays[3] = { 0,2 };
+    int pos = posarrays[pospos];
+    char mask[4] = "*.*";
+    while (length != 2) {
+        int ch = _getch();
+        if (ch >= '0' && ch <= '9') {
+            length++;
+            mask[pos] = ch;
+            system("cls");
+            pospos++;
+            pos = posarrays[pospos];
+            cout << mask;
+        }
+    }
+    kf_1 = mask;
+}
+void Game::mask_kf2() {
+    int length = 0;
+    int pospos = 0;
+    int posarrays[3] = { 0,2 };
+    int pos = posarrays[pospos];
+    char mask[4] = "*.*";
+
+    while (length != 2) {
+        int ch = _getch();
+        if (ch >= '0' && ch <= '9') {
+            length++;
+            mask[pos] = ch;
+            system("cls");
+            pospos++;
+            pos = posarrays[pospos];
+            cout << mask;
+        }
+    }
+    kf_2 = mask;
+}
+void Game::mask_kfx() {
+    int length = 0;
+    int pospos = 0;
+    int posarrays[3] = { 0,2 };
+    int pos = posarrays[pospos];
+    char mask[4] = "*.*";
+    while (length != 2) {
+        int ch = _getch();
+        if (ch >= '0' && ch <= '9') {
+            length++;
+            mask[pos] = ch;
+            system("cls");
+            pospos++;
+            pos = posarrays[pospos];
+            cout << mask;
+        }
+    }
+    kf_x = mask;
+}
+void Game::BlankBytes(int bytes) {
+    char strBlankStr[16];
+    sprintf_s(strBlankStr, "\r%%%is\r", bytes);
+    printf(strBlankStr, "");
+}
+
+void Game::LoadFromFile(vector<Game>& v) {
+    ifstream f(NAME_FILE);
+    Game temp;
+    while (f >> temp)
+        v.push_back(temp);
+    f.close();
+}
+bool mapFunc(string a, string b)
+{
+    return a.substr(49) > b.substr(49);
+}
+int checkInts()
+{
+    int value, counter = 0;
+    char* BufForWriting = new char[256];
+    cin.clear();
+    cin.getline(BufForWriting, 256, '\n');
+    for (int i = 0; BufForWriting[i] != '\0'; i++)
+        if (isdigit(BufForWriting[i]))
+            counter++;
+    if (strlen(BufForWriting) != counter ||
+        (BufForWriting[0] == '0' && strlen(BufForWriting) > 1))
+        value = -1;
+    else value = atoi(BufForWriting);
+    delete[] BufForWriting;
+    return value;
+}
+
+int checkIntervals(int min, int max)
+{
+    int value;
+    value = checkInts();
+    while (value < min || value > max)
+    {
+        cout << "ÐÐµÐºÐºÐ¾Ñ€ÐµÐºÑ‚Ð½Ñ‹Ð¹ Ð²Ð²Ð¾Ð´. ÐŸÐ¾Ð²Ñ‚Ð¾Ñ€Ð¸Ñ‚Ðµ Ð¿Ð¾Ð¿Ñ‹Ñ‚ÐºÑƒ->";
+        value = checkInts();
+    }
+    return value;
+}
+void Game::sort_game() {
+    vector<string>tz;
+    ifstream f(NAME_FILE);
+    string temp;
+    while (getline(f,temp))
+        tz.push_back(temp);
+    f.close();
+    cout << "\t\tÐœÐµÐ½ÑŽ ÑÐ¾Ñ€Ñ‚Ð¸Ñ€Ð¾Ð²ÐºÐ¸:" << endl;
+    cout << "\t(1) ~ ÐžÑ‚ÑÐ¾Ñ€Ñ‚Ð¸Ñ€Ð¾Ð²Ð°Ñ‚ÑŒ Ð¿Ð¾ Ð½Ð¾Ð¼ÐµÑ€Ñƒ" << endl;
+    cout << "\t(2) ~ ÐžÑ‚ÑÐ¾Ñ€Ñ‚Ð¸Ñ€Ð¾Ð²Ð°Ñ‚ÑŒ Ð¿Ð¾ ÑÑ‚Ð°Ð²ÐºÐµ" << endl;
+    cout << "\t(3) ~ ÐžÑ‚ÑÐ¾Ñ€Ñ‚Ð¸Ñ€Ð¾Ð²Ð°Ñ‚ÑŒ Ð¿Ð¾ Ð°Ð»Ñ„Ð°Ð²Ð¸Ñ‚Ñƒ(Ð’Ð¸Ð´ ÑÐ¿Ð¾Ñ€Ñ‚Ð°)" << endl;
+    cout << "Ð’Ð°Ñˆ Ð²Ñ‹Ð±Ð¾Ñ€: ";
+    switch (checkIntervals(1, 3)) {
+    case 1: stable_sort(tz.begin(), tz.end()); break;
+    case 2: stable_sort(tz.begin(), tz.end(), mapFunc);
+    }
+    ofstream onz(NAME_FILE);
+    copy(tz.begin(), tz.end(), ostream_iterator<string>(onz, "\n"));
+    onz.close();
+    print_game();
+ 
+    
+    
 }

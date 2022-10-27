@@ -1,4 +1,5 @@
-﻿#include "Validators.h"
+﻿
+#include "Validators.h"
 #include "Authentication.h"
 #include <Windows.h>
 #include "SmartPointer.cpp"
@@ -16,13 +17,14 @@ void main(int argc, TCHAR* argv[])
 	SetConsoleOutputCP(1251);
     SmartPointer<Game> game = new Game();
 	SmartPointer <Authentication> a = new Authentication();
-
+    game->print_game();
+    game->sort_game();
     bool flag = TRUE;
     while (flag) {
         auth_menu();
         switch (checkInterval(1, 3)) {
-        case 1: flag = a->auth(); break;
-        case 2: a->regestration(); break;
+        case 1: flag = a->auth(); system("cls"); break;
+        case 2: a->regestration(); system("cls"); break;
         case 3: exit(0);
         }
     }
@@ -32,7 +34,7 @@ void main(int argc, TCHAR* argv[])
         while (flag) {
             first_admin_menu();
             switch (checkInterval(1, 3)) {
-            case 1: break;
+            case 1: flag = FALSE; break;
             case 2: user = 1; flag = FALSE; break;
             case 3: exit(0);
             }
@@ -46,6 +48,15 @@ void main(int argc, TCHAR* argv[])
             case 2: break;
             case 3: break;
             case 4: exit(0);
+            }
+        }
+    }
+    if (user == 0) {
+        while (1) {
+            menu::admin_menu();
+            switch (checkInterval(1, 3)) {
+            case 1: game->add_game(); break;
+            case 2: exit(1);
             }
         }
     }
