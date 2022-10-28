@@ -8,6 +8,7 @@ namespace menu {
     void first_admin_menu();
     void user_menu();
     void admin_menu();
+    void sor_fil_menu();
 }
 
 void menu::auth_menu() {
@@ -36,7 +37,14 @@ void menu::user_menu() {
 void menu::admin_menu() {
     cout << "\t\tМеню:" << endl;
     cout << "\t(1) ~ Добавить игру" << endl;
+    cout << "Ваш выбор: ";
 }
-
+void menu::sor_fil_menu() {
+    cout << endl;
+    cout << "\t\tМеню:" << endl;
+    cout << "\t(1) ~ Выбрать меню сортировки" << endl;
+    cout << "\t(2) ~ Выбрать меню фильтрации" << endl;
+    cout << "Ваш выбор: ";
+}
 
 

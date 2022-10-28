@@ -40,9 +40,15 @@ void main(int argc, TCHAR* argv[])
     }
     if(a->getAccessInf() == 0 || user == 1 ){
         while (1) {
+            system("cls");
             user_menu();
             switch (checkInterval(1, 4)) {
-            case 1: game->print_game(); game->sort_game();
+            case 1: system("cls"); game->print_game(); sor_fil_menu(); {
+                switch (checkInterval(1, 2)) {
+                case 1: system("cls"); game->sort_game(); system("pause"); break;
+                case 2: system("cls"); game->filt_game(); system("pause"); break;
+                }
+            }; break;
             case 2: break;
             case 3: break;
             case 4: exit(0);

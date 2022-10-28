@@ -275,3 +275,196 @@ void Game::sort_game() {
     tz.clear();
     tk_plus.clear();
 }
+void tokenize(std::string const& str, const char delim,
+    std::vector<std::string>& out)
+{
+    size_t start;
+    size_t end = 0;
+
+    while ((start = str.find_first_not_of(delim, end)) != std::string::npos)
+    {
+        end = str.find(delim, start);
+        out.push_back(str.substr(start, end - start));
+    }
+}
+void Game::filt_game() {
+    print_game();
+    TextTable t('-', '|', '+');
+    t.add("");
+    t.add("Вид спорта");
+    t.add("Дата начала игры");
+    t.add("Первая команда");
+    t.add("Вторая команда");
+    t.add("KF_1");
+    t.add("KF_X");
+    t.add("KF_2");
+    t.add("Сумма ставок");
+    t.endOfRow();
+    cout << "\t\tМеню фильтрации:" << endl;
+    cout << "\t(1) ~ По виду спорта" << endl;
+    cout << "\t(2) ~ По команде" << endl;
+    cout << "\t(3) ~ По дате(От-До)" << endl;
+    cout << "Ваш выбор: ";
+    vector<Game> tz;
+    LoadFromFile(tz);
+    switch (checkIntervals(1, 3)) {
+    case 1: {
+        string type;
+        cout << "Введите вид спорта:";
+        getline(cin, type);
+        for (int i = 0; i < tz.size(); i++) {
+            cout << type << endl;;
+            cout << tz[i].type_of_game << endl;
+            if (strcmp((tz[i].type_of_game).c_str(), (type.c_str())) == 0) {
+                for (int k = 0; tz[i].type_of_game[k]; k++)
+                    if (tz[i].type_of_game[k] == '.')
+                        tz[i].type_of_game[k] = ' ';
+                for (int k = 0; tz[i].first_team[k]; k++)
+                    if (tz[i].first_team[k] == '.')
+                        tz[i].first_team[k] = ' ';
+                for (int k = 0; tz[i].second_team[k]; k++)
+                    if (tz[i].second_team[k] == '.')
+                        tz[i].second_team[k] = ' ';
+                for (int k = 0; tz[i].time[k]; k++)
+                    if (tz[i].time[k] == '.')
+                        tz[i].time[k] = ' ';
+                t.add(to_string(tz[i].numer_game));
+                t.add(tz[i].type_of_game);
+                t.add(tz[i].time);
+                t.add(tz[i].first_team);
+                t.add(tz[i].second_team);
+                t.add(tz[i].kf_1);
+                t.add(tz[i].kf_x);
+                t.add(tz[i].kf_2);
+                t.add(to_string(tz[i].money));
+                t.endOfRow();
+            }
+            else {
+                cout << "Такого вида спорта нет!" << endl;
+            }
+        }
+        system("cls");
+        cout << t;
+        break;
+    }
+    case 2: {
+        string type;
+        cout << "Введите название команды:";
+        getline(cin, type);
+        cout << type;
+        for (int i = 0; i < tz.size(); i++) {
+            if (strcmp((tz[i].first_team).c_str(), (type.c_str())) == 0) {
+                for (int k = 0; tz[i].type_of_game[k]; k++)
+                    if (tz[i].type_of_game[k] == '.')
+                        tz[i].type_of_game[k] = ' ';
+                for (int k = 0; tz[i].first_team[k]; k++)
+                    if (tz[i].first_team[k] == '.')
+                        tz[i].first_team[k] = ' ';
+                for (int k = 0; tz[i].second_team[k]; k++)
+                    if (tz[i].second_team[k] == '.')
+                        tz[i].second_team[k] = ' ';
+                for (int k = 0; tz[i].time[k]; k++)
+                    if (tz[i].time[k] == '.')
+                        tz[i].time[k] = ' ';
+                t.add(to_string(tz[i].numer_game));
+                t.add(tz[i].type_of_game);
+                t.add(tz[i].time);
+                t.add(tz[i].first_team);
+                t.add(tz[i].second_team);
+                t.add(tz[i].kf_1);
+                t.add(tz[i].kf_x);
+                t.add(tz[i].kf_2);
+                t.add(to_string(tz[i].money));
+                t.endOfRow();
+            }
+            if (strcmp((tz[i].second_team).c_str(), (type.c_str())) == 0) {
+                for (int k = 0; tz[i].type_of_game[k]; k++)
+                    if (tz[i].type_of_game[k] == '.')
+                        tz[i].type_of_game[k] = ' ';
+                for (int k = 0; tz[i].first_team[k]; k++)
+                    if (tz[i].first_team[k] == '.')
+                        tz[i].first_team[k] = ' ';
+                for (int k = 0; tz[i].second_team[k]; k++)
+                    if (tz[i].second_team[k] == '.')
+                        tz[i].second_team[k] = ' ';
+                for (int k = 0; tz[i].time[k]; k++)
+                    if (tz[i].time[k] == '.')
+                        tz[i].time[k] = ' ';
+                t.add(to_string(tz[i].numer_game));
+                t.add(tz[i].type_of_game);
+                t.add(tz[i].time);
+                t.add(tz[i].first_team);
+                t.add(tz[i].second_team);
+                t.add(tz[i].kf_1);
+                t.add(tz[i].kf_x);
+                t.add(tz[i].kf_2);
+                t.add(to_string(tz[i].money));
+                t.endOfRow();
+            }
+            else {
+                cout << "!" << endl;
+            }
+        }
+        cout << t;
+        break;
+    }
+    case 3: {
+        cout << "Введите время(**:** **-**-****)" << endl;
+        mask_time();
+        string first_time = time;
+        vector<string>out;
+        vector<string>out1;
+        vector<string>res;
+        const char delim = ':';
+        tokenize(first_time, delim, out);
+        cout << endl;
+        string h1 = out[0];
+        string m1 = out[1].substr(0, out[1].find(' '));
+        mask_time();
+        string next_time = time;
+        tokenize(next_time, delim, out1);
+        string h2 = out1[0];
+        string m2 = out1[1].substr(0, out1[1].find(' '));
+        system("cls");
+        for (int i = 0; i < tz.size(); i++) {
+            res.clear();
+            tokenize(tz[i].time, delim, res);
+            string hm = res[0];
+            string mm = res[1].substr(0, res[1].find(' '));
+            bool flag = false;
+            int h11 = stoi(h1);
+            int hmm = stoi(hm);
+            int h22 = stoi(h2);
+            if (h11 <= hmm <= h22 && (tz[i].time.find(hmm)>0)) {
+                for (int k = 0; tz[i].type_of_game[k]; k++)
+                    if (tz[i].type_of_game[k] == '.')
+                        tz[i].type_of_game[k] = ' ';
+                for (int k = 0; tz[i].first_team[k]; k++)
+                    if (tz[i].first_team[k] == '.')
+                        tz[i].first_team[k] = ' ';
+                for (int k = 0; tz[i].second_team[k]; k++)
+                    if (tz[i].second_team[k] == '.')
+                        tz[i].second_team[k] = ' ';
+                for (int k = 0; tz[i].time[k]; k++)
+                    if (tz[i].time[k] == '.')
+                        tz[i].time[k] = ' ';
+                t.add(to_string(tz[i].numer_game));
+                t.add(tz[i].type_of_game);
+                t.add(tz[i].time);
+                t.add(tz[i].first_team);
+                t.add(tz[i].second_team);
+                t.add(tz[i].kf_1);
+                t.add(tz[i].kf_x);
+                t.add(tz[i].kf_2);
+                t.add(to_string(tz[i].money));
+                t.endOfRow();
+            }
+            if (stoi(h1) == stoi(h2) && (stoi(m1) <= stoi(mm) <= stoi(m2))) {
+
+            }
+        }
+        cout << t;
+        break;
+    }
+    }
+}
