@@ -57,10 +57,12 @@ void main(int argc, TCHAR* argv[])
     }
     if (user == 0) {
         while (1) {
+            system("cls");
             menu::admin_menu();
-            switch (checkInterval(1, 3)) {
-            case 1: game->add_game(); break;
-            case 2: exit(1);
+            switch (checkInterval(1, 4)) {
+            case 1: system("cls"); game->add_game(); break;
+            case 2: system("cls"); game->delete_game(); system("pause"); break;
+            case 3: system("cls"); game->edit_game(); system("pause"); break;
             }
         }
     }

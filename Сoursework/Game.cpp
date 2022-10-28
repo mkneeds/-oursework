@@ -203,10 +203,6 @@ void Game::BlankBytes(int bytes) {
 }
 
 
-bool mapFunc(string a, string b)
-{
-    return a.substr(49) > b.substr(49);
-}
 int checkInts()
 {
     int value, counter = 0;
@@ -467,4 +463,136 @@ void Game::filt_game() {
         break;
     }
     }
+}
+void Game::delete_game() {
+    vector<Game>tz;
+    vector<Game>tk;
+    LoadFromFile(tz);
+    print_game();
+    int temp;
+    cout << "Введите номер записи которую нужно удалить:";
+    temp = checkInts();
+    int count = 0;
+    for (int i = 0; i < tz.size(); i++) {
+        if (tz[i].numer_game != temp) {
+            tk.push_back(tz[i]);
+            ofstream onz(NAME_FILE);
+            copy(tk.begin(), tk.end(), ostream_iterator<Game>(onz, "\n"));
+            onz.close();
+            count = 1;
+        }
+    }
+    if (count == 0) {
+        cout << "Записис с таким номером нет..." << endl;
+    }
+    else {
+        cout << "Запись успешно удалена" << endl;
+    }
+    print_game();
+}
+
+void Game::edit_game() {
+    vector<Game>tz;
+
+    LoadFromFile(tz);
+    print_game();
+    int temp;
+    cout << "Введите номер записи которую хотите изменить:";
+    temp = checkInts();
+    int count = 0;
+    int index;
+    for (int i = 0; i < tz.size(); i++) {
+        if (tz[i].numer_game == temp) {
+            count = 1;
+            index = i;
+            break;
+       }
+    }
+    if (count == 0) {
+        cout << "Записис с таким номером нет..." << endl;
+    }
+    else {
+        cout << "\t\tМеню редактирования:" << endl;
+        cout << "\t(1) ~ Изменить вид спорта" << endl;
+        cout << "\t(2) ~ Изменить время" << endl;
+        cout << "\t(3) ~ Изменить название первой команды" << endl;
+        cout << "\t(4) ~ Изменить название второй команды" << endl;
+        cout << "\t(5) ~ Изменить KF_1" << endl;
+        cout << "\t(6) ~ Изменить KF_X" << endl;
+        cout << "\t(7) ~ Изменить KF_2" << endl;
+        cout << "\t(8) ~ Назад" << endl;
+        cout << "Ваш выбор: ";
+        switch (checkIntervals(1, 7)) {
+        case 1: {string type;
+            cout << "Введите новый тип игры" << endl;
+            getline(cin, type);
+            tz[index].type_of_game = type;
+            ofstream onz(NAME_FILE);
+            copy(tz.begin(), tz.end(), ostream_iterator<Game>(onz, "\n"));
+            onz.close();
+        }break;
+        case 2: {
+            string type;
+            cout << "Введите новое время" << endl;
+            mask_time();
+            cout << endl;
+            for (int i = 0; time[i]; i++)
+                if (time[i] == ' ')
+                    time[i] = '.';
+            tz[index].time = time;
+            ofstream onz(NAME_FILE);
+            copy(tz.begin(), tz.end(), ostream_iterator<Game>(onz, "\n"));
+            onz.close();
+        }break;
+        case 3: {
+            string type;
+            cout << "Введите новое название первой команды" << endl;
+            getline(cin, type);
+            tz[index].first_team = type;
+            ofstream onz(NAME_FILE);
+            copy(tz.begin(), tz.end(), ostream_iterator<Game>(onz, "\n"));
+            onz.close();
+        }break;
+        case 4: {
+            string type;
+            cout << "Введите новое название второй команды" << endl;
+            getline(cin, type);
+            tz[index].second_team = type;
+            ofstream onz(NAME_FILE);
+            copy(tz.begin(), tz.end(), ostream_iterator<Game>(onz, "\n"));
+            onz.close();
+        }break;
+        case 5: {
+            string type;
+            cout << "Введите новой KF_1" << endl;
+            mask_kf1();
+            cout << endl;
+            tz[index].kf_1 = kf_1;
+            ofstream onz(NAME_FILE);
+            copy(tz.begin(), tz.end(), ostream_iterator<Game>(onz, "\n"));
+            onz.close();
+        }break;
+        case 6: {
+            string type;
+            cout << "Введите новой KF_X" << endl;
+            mask_kfx();
+            cout << endl;
+            tz[index].kf_x = kf_x;
+            ofstream onz(NAME_FILE);
+            copy(tz.begin(), tz.end(), ostream_iterator<Game>(onz, "\n"));
+            onz.close();
+        }break;
+        case 7: {
+            string type;
+            cout << "Введите новой KF_2" << endl;
+            mask_kf2();
+            cout << endl;
+            tz[index].kf_2 = kf_2;
+            ofstream onz(NAME_FILE);
+            copy(tz.begin(), tz.end(), ostream_iterator<Game>(onz, "\n"));
+            onz.close();
+        }break;
+        }
+    }
+    print_game();
 }

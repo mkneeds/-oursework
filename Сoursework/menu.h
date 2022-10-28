@@ -37,6 +37,8 @@ void menu::user_menu() {
 void menu::admin_menu() {
     cout << "\t\tМеню:" << endl;
     cout << "\t(1) ~ Добавить игру" << endl;
+    cout << "\t(2) ~ Удалить игру" << endl;
+    cout << "\t(3) ~ Редактировать игру" << endl;
     cout << "Ваш выбор: ";
 }
 void menu::sor_fil_menu() {

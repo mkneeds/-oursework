@@ -41,6 +41,8 @@ public:
     void sort_game();
     void filt_game();
     void place_bet();
+    void delete_game();
+    void edit_game();
 private:
     void upload_information();
     void write_end_file();
