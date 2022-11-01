@@ -30,8 +30,9 @@ void menu::user_menu() {
     cout << "\t\tМеню:" << endl;
     cout << "\t(1) ~ Просмотреть все игры" << endl;
     cout << "\t(2) ~ Сделать ставку" << endl;
-    cout << "\t(3) ~ Пополнить баланс" << endl;
-    cout << "\t(4) ~ Выход" << endl;
+    cout << "\t(3) ~ Ваш баланс" << endl;
+    cout << "\t(4) ~ Пополнить баланс" << endl;
+    cout << "\t(5) ~ Выход" << endl;
     cout << "Ваш выбор: ";
 }
 void menu::admin_menu() {

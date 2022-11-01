@@ -238,7 +238,6 @@ void Game::LoadFromFile(vector<Game>&v) {
         v.push_back(temp);
     }
     f.close();
-
 }
 
 void Game::sort_game() {
@@ -493,7 +492,6 @@ void Game::delete_game() {
 
 void Game::edit_game() {
     vector<Game>tz;
-
     LoadFromFile(tz);
     print_game();
     int temp;
@@ -523,7 +521,8 @@ void Game::edit_game() {
         cout << "\t(8) ~ Назад" << endl;
         cout << "Ваш выбор: ";
         switch (checkIntervals(1, 7)) {
-        case 1: {string type;
+        case 1: {
+            string type;
             cout << "Введите новый тип игры" << endl;
             getline(cin, type);
             tz[index].type_of_game = type;

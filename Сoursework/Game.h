@@ -66,14 +66,11 @@ private:
         return stream;
     }
     friend ostream& operator<<(ostream& stream, const Game& v) {
-        stream << v.numer_game << " " << v.type_of_game<<" "<< v.time << " " << " " << v.first_team << " " << v.second_team << " " << v.kf_1 << " " << v.kf_x << " " << v.kf_2 << " " << v.money;
+        stream << v.numer_game << " " << v.type_of_game<<" "<< v.time << " " << v.first_team << " " << v.second_team << " " << v.kf_1 << " " << v.kf_x << " " << v.kf_2 << " " << v.money;
         return stream;
     }
     Game& operator=(const Game&) = default;
-    bool operator()(const Game& x, const Game& y) const
-    {
-        return x.money < y.money;
-    }
+    
 
     class comp_data {
         int what;
@@ -81,10 +78,7 @@ private:
             switch (abs(what)) {
             case 1: return f->numer_game < s->numer_game; break;
             case 2: return f->type_of_game < s->type_of_game; break;
-            case 3: return f->first_team < s->first_team; break;
-            case 4: return f->second_team < s->second_team; break;
-            case 5: return f->time < s->time; break;
-            case 6: return f->money < s->money; break;
+            case 3: return f->money < s->money; break;
             default: return false;
             }
         }

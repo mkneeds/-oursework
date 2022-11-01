@@ -54,7 +54,7 @@ void Authentication::writeEndFileAccounts()
 {
 	enc.decrypt();
 	ofstream fout(file, ios::app);
-	fout << login << " " << password << " " << role;
+	fout << login << " " << password << " " << role << " "<<user_balance;
 	fout << endl;
 	fout.close();
 	enc.encrypt();
@@ -217,6 +217,7 @@ int Authentication::auth() {
 				}
 				cout << "Вы успешно вошли...." << endl;
 				access_log = 1;
+                upd_balance();
 				system("pause");
                 enc.encrypt();
                 return FALSE;
@@ -226,4 +227,78 @@ int Authentication::auth() {
         fin.close();
 	}
     fin.close();
+}
+void Authentication::upload_information(vector<Authentication> &v) {
+    enc.decrypt();
+    ifstream f(file);
+    Authentication temp;
+    while (f >> temp) {
+          v.push_back(temp);
+     }
+      f.close();
+      enc.encrypt();
+}
+
+void Authentication::upd_balance() {
+    vector <Authentication>cont;
+    upload_information(cont);
+    for (int i = 0; i < cont.size(); i++) {
+        if (cont[i].login == login) {
+            user_balance = cont[i].user_balance;
+        }
+    }
+}
+void Authentication::add_balance() {
+    try {
+        cout << "Введите карточку(Пример:79927398713):" << endl;
+        string name_card;
+        cin >> name_card;
+        if (!checkLuhn(name_card)) {
+            throw name_card;
+        }
+        cout << "Введите CCV";
+        string ccv;
+        cin >> ccv;
+    }
+    catch(string name_card) {
+        cout << "Карточка не валидна..." << endl;
+        cout << "Введите карточку(Пример:79927398713):" << endl;
+        cin >> name_card;
+        cout << "Введите CCV";
+        string ccv;
+        cin >> ccv;
+    }
+    cout << "Сумма для пополнения:" << endl;
+    int sum;
+    cin >> sum;
+    user_balance += sum;
+    vector <Authentication>cont;
+    upload_information(cont);
+    for (int i = 0; i < cont.size(); i++) {
+        if (cont[i].login == login) {
+            cont[i].user_balance = user_balance;
+        }
+    }
+    enc.decrypt();
+    ofstream onz(file);
+    copy(cont.begin(), cont.end(), ostream_iterator<Authentication>(onz, "\n"));
+    onz.close();
+    enc.encrypt();
+}
+bool Authentication::checkLuhn(const string& cardNo) {
+    int nDigits = cardNo.length();
+
+    int nSum = 0, isSecond = false;
+    for (int i = nDigits - 1; i >= 0; i--) {
+
+        int d = cardNo[i] - '0';
+
+        if (isSecond == true)
+            d = d * 2;
+        nSum += d / 10;
+        nSum += d % 10;
+
+        isSecond = !isSecond;
+    }
+    return (nSum % 10 == 0);
 }

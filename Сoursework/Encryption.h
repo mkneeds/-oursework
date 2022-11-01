@@ -13,6 +13,5 @@ class Encryption
 public:
     void encrypt();
     void decrypt();
-
 };
 

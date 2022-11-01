@@ -4,6 +4,9 @@
 #include <conio.h>;
 
 class Authentication{
+public:
+    Authentication(){}
+    Authentication(string login, string password, string role, int user_balance) : login(login), password(password), role(role), user_balance(user_balance){}
 
 private:
 	Encryption enc;
@@ -20,11 +23,28 @@ public:
 	int auth();
 	void regestration();
     int8_t getAccessInf() { return access_inf; }
+    void getBalance() { upd_balance(); cout << "Ваш баланс: " << user_balance << " р." << endl; system("pause"); }
+    void add_balance();
+
 private:
+    bool checkLuhn(const string& cardNo);
 	void writeEndFileAccounts();
 	string setLogin();
 	string setPassword();
 	char* encryption();
-	
+    void upload_information(vector<Authentication>& v);
+    void upd_balance();
+    friend istream& operator>>(istream& stream,Authentication& v) {
+        stream >> v.login;
+        stream >> v.password;
+        stream >> v.role;
+        stream >> v.user_balance;
+        return stream;
+    }
+    friend ostream& operator<<(ostream& stream, const Authentication& v) {
+        stream << v.login<< " " << v.password<< " " << v.role<< " "<< v.user_balance;
+        return stream;
+    }
+    Authentication& operator=(const Authentication&) = default;
 };
 
