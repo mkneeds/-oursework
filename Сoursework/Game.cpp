@@ -2,6 +2,8 @@
 #include <conio.h>
 #include "SmartPointer.cpp"
 #include "cassert"
+#include <format>
+
 
 
 void Game::add_game() {
@@ -72,6 +74,7 @@ void Game::upload_information() {
    fin.close();    
 }
 void Game::print_game() {
+    setprecision(2);
     ifstream fout(NAME_FILE, ios::in);
     if (!fout) {
         cout << "Не удалось открыть файл...///";
@@ -106,7 +109,7 @@ void Game::print_game() {
             t.add(time);
             t.add(first_team);
             t.add(second_team);
-            t.add(kf_1);
+            t.add(format("{0:0.00}", kf_1));
             t.add(kf_x);
             t.add(kf_2);
             t.add(to_string(money));
@@ -463,6 +466,167 @@ void Game::filt_game() {
     }
     }
 }
+void Game::place_bet(float balance)
+{
+
+    string name;
+    system("cls");
+    vector<Game> game;
+    LoadFromFile(game);
+    print_game();
+    cout << "\tВведите id игры на которую хотите сделать ставку:";
+    int id = checkInts();
+    float win;
+    for (int i = 0; i < game.size(); i++) {
+        if (game[i].numer_game == id) {
+            int index = i;
+            cout << "Игра найдена...." << endl;
+            cout << "На какую команду хотите сделать ставку(1/2, 3(Ничья)" << endl;
+            int choose_team;
+            choose_team = checkInts();
+            float bet;
+            try {
+                cout << "Сколько хотите поставить?" << endl;
+                cin >> bet;
+                if (bet > balance) {
+                    throw bet;
+                }
+            }
+            catch (float except) {
+                cout << "Недостаточно средств на балансе" << endl;
+                cout << "На вашем балансе->" << balance << endl;
+                cout << "Сколько хотите поставить?" << endl;
+                cin >> bet;
+            }
+            schet = bet;
+            if (choose_team == 1) {
+                win = bet * atof(kf_1.c_str());
+                double new_kf_1 = atof(game[index].kf_1.c_str());
+                new_kf_1 = (new_kf_1 * bet) / 1000 * 1.3;
+                if (new_kf_1 <= 1) {
+                    new_kf_1 += 1;
+                }
+                kf_1 = new_kf_1;
+                double new_kf_x = atof(game[index].kf_x.c_str());
+                new_kf_x = (((new_kf_x * bet)) / 1000) * 1.5;
+                if (new_kf_x <= 1) {
+                    new_kf_x += 1;
+                }
+                kf_x = new_kf_x;
+                double new_kf_2 = atof(game[index].kf_2.c_str());
+                new_kf_2 = ((new_kf_x * bet) / 1000) * 2.5;
+                if (new_kf_2 <= 1) {
+                    new_kf_2 += 1;
+                }
+            
+                game[index].kf_1 = to_string(new_kf_1);
+                game[index].kf_x = to_string(new_kf_x);
+                game[index].kf_2 = to_string(new_kf_2);
+                game[index].money += bet;
+                name = game[index].first_team;
+                ofstream onz(NAME_FILE);
+                copy(game.begin(), game.end(), ostream_iterator<Game>(onz, "\n"));
+                onz.close();
+                cout << "Ставка успешно сделана!" << endl;
+                cout << "Возможный выигрыш ->" << win << endl;;
+            }
+            else if (choose_team == 2) {
+                win = bet * atof(kf_2.c_str());
+                double new_kf_1 = atof(game[index].kf_1.c_str());
+                new_kf_1 = new_kf_1 * bet / 1000*2.5;
+                if (new_kf_1 <= 1) {
+                    new_kf_1 += 1;
+                }
+                kf_1 = new_kf_1;
+                double new_kf_x = atof(game[index].kf_x.c_str());
+                new_kf_x = (new_kf_x * bet / 1000) * 1.5;
+                if (new_kf_x <= 1) {
+                    new_kf_x += 1;
+                }
+                kf_x = new_kf_x;
+                double new_kf_2 = atof(game[index].kf_2.c_str());
+                new_kf_2 = (new_kf_x * bet / 1000)*1.3;
+                if (new_kf_2 <= 1) {
+                    new_kf_2 += 1;
+                }
+                game[index].kf_1 = to_string(new_kf_1);
+                game[index].kf_x = to_string(new_kf_x);
+                game[index].kf_2 = to_string(new_kf_2);
+                game[index].money += bet;
+                ofstream onz(NAME_FILE);
+                copy(game.begin(), game.end(), ostream_iterator<Game>(onz, "\n"));
+                onz.close();
+                cout << "Ставка успешно сделана!" << endl;
+                name = game[index].second_team;
+               
+                cout << "Возможный выигрыш ->" << win << endl;
+
+            }
+            else {
+                win = bet * atof(kf_x.c_str());
+                double new_kf_1 = atof(game[index].kf_1.c_str());
+                new_kf_1 = new_kf_1 * bet / 1000*1.5;
+                if (new_kf_1 <= 1) {
+                    new_kf_1 += 1;
+                }
+                kf_1 = new_kf_1;
+                double new_kf_x = atof(game[index].kf_x.c_str());
+                new_kf_x = (new_kf_x * bet / 1000)*1.3;
+                if (new_kf_x <= 1) {
+                    new_kf_x += 1;
+                }
+                kf_x = new_kf_x;
+                double new_kf_2 = atof(game[index].kf_2.c_str());
+                new_kf_2 = (new_kf_x * bet / 1000) * 2.5;
+                if (new_kf_2 <= 1) {
+                    new_kf_2 += 1;
+                }
+                game[index].kf_1 = to_string(new_kf_1);
+                game[index].kf_x = to_string(new_kf_x);
+                game[index].kf_2 = to_string(new_kf_2);
+                game[index].money += bet;
+                ofstream onz(NAME_FILE);
+                copy(game.begin(), game.end(), ostream_iterator<Game>(onz, "\n"));
+                onz.close();
+                cout << "Ставка успешно сделана!" << endl;
+                name = "Ничья";
+              
+                cout << "Возможный выигрыш ->" << win << endl;
+            }
+            cout << "Желаете ли вы распечатать чек?" << endl;
+            cout << "1) Да" << endl;
+            cout << "2) Нет" << endl;
+            int chooser;
+            cin >> chooser;
+            switch (chooser) {
+            case 1: {
+                TextTable t;
+                t.add("");
+                t.add("Информация о ставкке");
+                t.endOfRow();
+                t.add("Команда");
+                t.add(name);
+                t.endOfRow();
+                t.add("Cтавка");
+                t.add(to_string(bet));
+                t.endOfRow();
+                t.add("Возможный выигрыш");
+                t.add(to_string(win));
+                t.endOfRow();
+                t.add("");
+                t.add("");
+                t.endOfRow();
+                cout << t;
+                ofstream otchet("Otchet.txt");
+                otchet << t;
+                otchet.close();
+                system("Otchet.txt");
+            }break;
+            case 2: break;
+            }
+        }
+    }
+}
 void Game::delete_game() {
     vector<Game>tz;
     vector<Game>tk;
@@ -594,4 +758,48 @@ void Game::edit_game() {
         }
     }
     print_game();
+}
+
+void Game::play_casino(float balance)
+{
+    cout << "Игра стоит 5р готовы сыграть?" << endl;
+    cout << "1)Да"<<endl;
+    cout << "2)Нет" << endl;
+    int vibor;
+    cin >> vibor;
+        switch (vibor) {
+        case 1: {
+            schet = 5;
+            float place = 5;
+            Machine* slotmachine = new Machine();
+            slotmachine->insertbill(place);
+            slotmachine->insertcoin();
+            bool flag = true;
+            while (flag) {
+                cout << "Крутим?" << endl;
+                cout << "1)Да" << endl;
+                cout << "2)Нет" << endl;
+                int vibor;
+                cin >> vibor;
+                switch (vibor) {
+                case 1: {
+                    slotmachine->bet(place);
+                    slotmachine->spin();
+
+                }break;
+                case 2: {
+                    win = slotmachine->get_modey();
+                    cout << "На ваш счет выведено "<<win<<" р." << endl;
+                }flag = false;  break;
+                } 
+            }
+            delete(slotmachine);
+
+        }break;
+        case 2:break;
+        }
+    
+   
+
+
 }

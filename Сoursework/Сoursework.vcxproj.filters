@@ -27,6 +27,9 @@
     <ClCompile Include="Game.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Machine.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Encryption.h">
@@ -50,12 +53,18 @@
     <ClInclude Include="Table.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Machine.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Text Include="Auth.txt">
       <Filter>Resource Files</Filter>
     </Text>
     <Text Include="Games.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
+    <Text Include="Otchet.txt">
       <Filter>Resource Files</Filter>
     </Text>
   </ItemGroup>

@@ -50,7 +50,7 @@
     <UseDebugLibraries>false</UseDebugLibraries>
     <PlatformToolset>v143</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
-    <CharacterSet>Unicode</CharacterSet>
+    <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
   <ImportGroup Label="ExtensionSettings">
@@ -130,12 +130,14 @@
     <ClCompile Include="Authentication.cpp" />
     <ClCompile Include="Encryption.cpp" />
     <ClCompile Include="Game.cpp" />
+    <ClCompile Include="Machine.cpp" />
     <ClCompile Include="Сoursework.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Authentication.h" />
     <ClInclude Include="Encryption.h" />
     <ClInclude Include="Game.h" />
+    <ClInclude Include="Machine.h" />
     <ClInclude Include="menu.h" />
     <ClInclude Include="SmartPointer.h" />
     <ClInclude Include="Table.h" />
@@ -144,6 +146,7 @@
   <ItemGroup>
     <Text Include="Auth.txt" />
     <Text Include="Games.txt" />
+    <Text Include="Otchet.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

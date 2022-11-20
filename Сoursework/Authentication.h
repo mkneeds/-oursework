@@ -1,8 +1,11 @@
 #pragma once
+#include "Validators.h"
 #include "Encryption.h"
+
 #include <string>;
 #include <conio.h>;
-
+#include <fstream>
+#include <Windows.h>
 class Authentication{
 public:
     Authentication(){}
@@ -18,14 +21,18 @@ private:
 	int8_t access_inf = 0;// change and admin mode
 	int8_t access_log = 0;// acc in auth
 	string file = "Auth.txt";
-    int user_balance = 0;
+    float user_balance = 0;
 public:
+    int getMoney() { return user_balance; }
+    void change_user();
 	int auth();
 	void regestration();
     int8_t getAccessInf() { return access_inf; }
     void getBalance() { upd_balance(); cout << "Ваш баланс: " << user_balance << " р." << endl; system("pause"); }
     void add_balance();
-
+    void upd_balance();
+    void upd_Balance(float money);
+    void plus(float money);
 private:
     bool checkLuhn(const string& cardNo);
 	void writeEndFileAccounts();
@@ -33,7 +40,7 @@ private:
 	string setPassword();
 	char* encryption();
     void upload_information(vector<Authentication>& v);
-    void upd_balance();
+   
     friend istream& operator>>(istream& stream,Authentication& v) {
         stream >> v.login;
         stream >> v.password;

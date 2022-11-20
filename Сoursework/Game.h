@@ -5,6 +5,7 @@
 #include <istream>
 #include <algorithm>
 #include <memory>
+#include "Machine.h"
 
 using namespace std;
 
@@ -22,7 +23,9 @@ public:
     string get_kf_x() { return kf_x; }
     string get_kf_2() { return kf_2; }
     int get_money() { return money; }
+    float get_casino() { return win; }
 private:
+    float win;
     int numer_game;
     string type_of_game;
     string time;
@@ -31,7 +34,8 @@ private:
     string kf_1;
     string kf_x;
     string kf_2;
-    int money = 0;
+    float money = 0;
+    float schet;
 public:
     const string NAME_FILE = "Games.txt";
 public:
@@ -40,9 +44,11 @@ public:
     void add_game();
     void sort_game();
     void filt_game();
-    void place_bet();
+    void place_bet(float balance);
     void delete_game();
     void edit_game();
+    int get_schet() { return schet; }
+    void play_casino(float balance);
 private:
     void upload_information();
     void write_end_file();
@@ -90,4 +96,3 @@ private:
         }
     };
 };
-
