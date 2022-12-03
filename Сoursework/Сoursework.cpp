@@ -11,15 +11,16 @@ void main(int argc, TCHAR* argv[])
 {
 
     system("color F0");
-    color(177);
+
     HWND console = GetConsoleWindow();
     HMENU menu = GetSystemMenu(console, FALSE);
-
+    HDC mdc = GetDC(console);
     DeleteMenu(menu, SC_CLOSE, MF_BYCOMMAND);
 	SetConsoleCP(1251);
 	SetConsoleOutputCP(1251);
     SmartPointer<Game> game = new Game();
 	SmartPointer <Authentication> a = new Authentication();
+    graph2();
     bool flag = TRUE;
     bool flag_admin = FALSE;
     while (flag) {

@@ -5,9 +5,9 @@
 
 using namespace std;
 
-class Wheel {
+class MachineWh {
 public:
-    Wheel();
+    MachineWh();
     void spin();
     int* read();
 
@@ -17,7 +17,7 @@ private:
 };
 
 
-class Machine {
+class Machine : MachineWh {
 public:
     enum Image {
         orange = 1,
@@ -48,7 +48,7 @@ private:
     int betAmount;
     int screen[3][3];
 
-    Wheel* wheels[3];
+    MachineWh* MachineWhs[3];
 };
 
 

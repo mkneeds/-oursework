@@ -1,10 +1,11 @@
-#pragma once
+ï»¿#pragma once
 #include <iostream>
 
 #include <fstream>
 #include <conio.h>
 #include <Windows.h>
 #include <string>
+#include <cmath>
 
 using namespace std;
 
@@ -31,7 +32,7 @@ inline int checkInterval(int min, int max)
     value = checkInt();
     while (value < min || value > max)
     {
-        cout << "Íåêêîðåêòíûé ââîä. Ïîâòîðèòå ïîïûòêó->";
+        cout << "ÐÐµÐºÐºÐ¾Ñ€ÐµÐºÑ‚Ð½Ñ‹Ð¹ Ð²Ð²Ð¾Ð´. ÐŸÐ¾Ð²Ñ‚Ð¾Ñ€Ð¸Ñ‚Ðµ Ð¿Ð¾Ð¿Ñ‹Ñ‚ÐºÑƒ->";
         value = checkInt();
     }
     return value;
@@ -75,4 +76,62 @@ inline void load()
     }
 
     cout << "\b " << flush;
+}
+inline void graph() {
+    
+    std::cout << R"( 
+     / \
+    / _ \
+   | / \ |
+   ||   || _______
+   ||   || |\     \
+   ||   || ||\     \
+   ||   || || \    |
+   ||   || ||  \__/
+   ||   || ||   ||
+    \\_/ \_/ \_//
+   /   _     _   \
+  /               \
+  |    O     O    |
+  |   \  ___  /   |
+ /     \ \_/ /     \
+/  -----  |  -----  \
+|     \__/|\__/     |
+\       |_|_|       /
+ \_____       _____/
+       \     /
+       |     |)";
+}
+inline void graph2() {
+
+    cout << R"( 
+        |    |
+        |    o
+        |   /|  .--o
+        |   ||_/_
+        | .'\    `'.
+        |/   \      `\
+        ||       O    |
+        |;            /
+        | \   '-,___.'
+       _|  \      \
+    .-' |   ;      \
+  .'    |   |       ;
+ /      |   |       |
+|       |   |       ;
+|       L_  |      /
+|         `'-.  _.'
+\             `'._
+ \     BEST       '.
+  '.       WISHES   \
+    `'._     MARINA  ;
+        T-._ SALAPURA|
+       ,|   |-,      ;
+     .' |   |       /
+    /   |   |     .'
+   /    |   |.--'`
+  |   .-|   |
+  |  /  |   |
+  \ /   |   |
+   `    |   |)";
 }

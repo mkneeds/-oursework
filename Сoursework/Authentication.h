@@ -1,7 +1,6 @@
 #pragma once
 #include "Validators.h"
 #include "Encryption.h"
-
 #include <string>;
 #include <conio.h>;
 #include <fstream>

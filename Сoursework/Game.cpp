@@ -2,7 +2,8 @@
 #include <conio.h>
 #include "SmartPointer.cpp"
 #include "cassert"
-#include <format>
+#include <boost/format.hpp>
+#include <boost/lexical_cast.hpp>
 
 
 
@@ -109,10 +110,10 @@ void Game::print_game() {
             t.add(time);
             t.add(first_team);
             t.add(second_team);
-            t.add(format("{0:0.00}", kf_1));
-            t.add(kf_x);
-            t.add(kf_2);
-            t.add(to_string(money));
+            t.add(to_string(round(boost::lexical_cast<double>(kf_1) * 100) / 100).substr(0, 4));
+            t.add(to_string(round(boost::lexical_cast<double>(kf_x) * 100) / 100).substr(0, 4));
+            t.add(to_string(round(boost::lexical_cast<double>(kf_2) * 100) / 100).substr(0, 4));
+            t.add(to_string(round(boost::lexical_cast<double>(money) * 100) / 100).substr(0, 4));
             t.endOfRow();
         }
         cout << t;
@@ -608,10 +609,10 @@ void Game::place_bet(float balance)
                 t.add(name);
                 t.endOfRow();
                 t.add("Cтавка");
-                t.add(to_string(bet));
+                t.add(to_string(round(boost::lexical_cast<double>(bet) * 100) / 100).substr(0, 4));
                 t.endOfRow();
                 t.add("Возможный выигрыш");
-                t.add(to_string(win));
+                t.add(to_string(round(boost::lexical_cast<double>(win) * 100) / 100).substr(0, 4));
                 t.endOfRow();
                 t.add("");
                 t.add("");
@@ -684,7 +685,7 @@ void Game::edit_game() {
         cout << "\t(7) ~ Изменить KF_2" << endl;
         cout << "\t(8) ~ Назад" << endl;
         cout << "Ваш выбор: ";
-        switch (checkIntervals(1, 7)) {
+        switch (checkIntervals(1, 8)) {
         case 1: {
             string type;
             cout << "Введите новый тип игры" << endl;
@@ -727,7 +728,7 @@ void Game::edit_game() {
         }break;
         case 5: {
             string type;
-            cout << "Введите новой KF_1" << endl;
+            cout << "Введите новый KF_1" << endl;
             mask_kf1();
             cout << endl;
             tz[index].kf_1 = kf_1;
@@ -737,7 +738,7 @@ void Game::edit_game() {
         }break;
         case 6: {
             string type;
-            cout << "Введите новой KF_X" << endl;
+            cout << "Введите новый KF_X" << endl;
             mask_kfx();
             cout << endl;
             tz[index].kf_x = kf_x;
@@ -747,7 +748,7 @@ void Game::edit_game() {
         }break;
         case 7: {
             string type;
-            cout << "Введите новой KF_2" << endl;
+            cout << "Введите новый KF_2" << endl;
             mask_kf2();
             cout << endl;
             tz[index].kf_2 = kf_2;
@@ -755,6 +756,7 @@ void Game::edit_game() {
             copy(tz.begin(), tz.end(), ostream_iterator<Game>(onz, "\n"));
             onz.close();
         }break;
+        case 8: break;
         }
     }
     print_game();

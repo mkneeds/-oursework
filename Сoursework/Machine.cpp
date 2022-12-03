@@ -1,5 +1,5 @@
 #include "Machine.h"
-Wheel::Wheel() {
+MachineWh::MachineWh() {
     srand((int)time(NULL));
 
     internalPtr = (rand() % 9);
@@ -9,7 +9,7 @@ Wheel::Wheel() {
     }
 }
 
-void Wheel::spin() {
+void MachineWh::spin() {
     int spins = (rand() % 50) + 10;
 
     for (int i = 0; i < spins; i++) {
@@ -20,7 +20,7 @@ void Wheel::spin() {
 }
 
 
-int* Wheel::read() {
+int* MachineWh::read() {
     int prev = internalPtr - 1;
     int next = internalPtr + 1;
 
@@ -39,9 +39,9 @@ Machine::Machine() {
     credits = 0;
     betAmount = 0;
 
-    wheels[0] = new Wheel();
-    wheels[1] = new Wheel();
-    wheels[2] = new Wheel();
+    MachineWhs[0] = new MachineWh();
+    MachineWhs[1] = new MachineWh();
+    MachineWhs[2] = new MachineWh();
 
     for (int i = 0; i < 3; i++) {
         for (int j = 0; j < 3; j++) {
@@ -52,22 +52,22 @@ Machine::Machine() {
 
 
 Machine::~Machine() {
-    delete(wheels[0]);
-    delete(wheels[1]);
-    delete(wheels[2]);
+    delete(MachineWhs[0]);
+    delete(MachineWhs[1]);
+    delete(MachineWhs[2]);
 }
 
 
 
 void Machine::spin() {
     if (betAmount > 0) {
-        wheels[0]->spin();
-        wheels[1]->spin();
-        wheels[2]->spin();
+        MachineWhs[0]->spin();
+        MachineWhs[1]->spin();
+        MachineWhs[2]->spin();
 
-        int* column1 = wheels[0]->read();
-        int* column2 = wheels[1]->read();
-        int* column3 = wheels[2]->read();
+        int* column1 = MachineWhs[0]->read();
+        int* column2 = MachineWhs[1]->read();
+        int* column3 = MachineWhs[2]->read();
 
 
         loadscreen(0, column1);
@@ -91,9 +91,9 @@ void Machine::spin() {
 }
 
 
-void Machine::loadscreen(int col, int* wheelcolumn) {
+void Machine::loadscreen(int col, int* MachineWhcolumn) {
     for (int i = 0; i < 3; i++) {
-        screen[i][col] = wheelcolumn[i];
+        screen[i][col] = MachineWhcolumn[i];
     }
 }
 

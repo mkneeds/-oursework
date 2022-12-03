@@ -40,7 +40,6 @@ public:
     const string NAME_FILE = "Games.txt";
 public:
     void print_game();
-    void LoadFromFile(vector<Game>& v);
     void add_game();
     void sort_game();
     void filt_game();
@@ -50,6 +49,7 @@ public:
     int get_schet() { return schet; }
     void play_casino(float balance);
 private:
+    void LoadFromFile(vector<Game>& v);
     void upload_information();
     void write_end_file();
     void mask_time();

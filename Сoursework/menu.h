@@ -5,11 +5,11 @@
 
 using namespace std;
 namespace menu {
-    void auth_menu();
-    void first_admin_menu();
-    void user_menu();
-    void admin_menu();
-    void sor_fil_menu();
+    static void auth_menu();
+    static void first_admin_menu();
+    static void user_menu();
+    static void admin_menu();
+    static void sor_fil_menu();
 }
 
 void menu::auth_menu() {
